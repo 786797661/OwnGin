@@ -1,0 +1,19 @@
+{{define "arr/arr_info.html"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{{/*第一种*/}}
+{{range .}}
+    {{.}}
+{{end}}
+{{/*第二种*/}}
+{{range $i,$v:=.}}
+    {{$v}}
+{{end}}
+</body>
+</html>
+{{end}}
