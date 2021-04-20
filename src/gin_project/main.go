@@ -33,7 +33,21 @@ func main() {
 	router.POST("/user_add2", chapter02.PostUser2)
 
 	router.GET("/user_info_form3", chapter02.GetUserController3)
+
 	router.POST("/user_add3", chapter02.PostUser3)
 
+	//单张上传
+	router.GET("/upload_to_file", chapter02.GetUploadFileController)
+	router.POST("/chapter02/upload_do_file", chapter02.PostUpload)
+
+	//多张上传
+	router.GET("/upload_to_file2", chapter02.GetUploadFileController2)
+	router.POST("/chapter02/upload_do_file2", chapter02.PostUpload2)
+
+	//ajax单张上传
+	router.GET("/upload_to_file3", chapter02.GetUploadFileController3)
+	router.POST("/chapter02/upload_do_file", chapter02.PostUpload)
+
 	router.Run(":9000")
+
 }

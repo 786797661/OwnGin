@@ -9,6 +9,8 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
+	"time"
 )
 
 type UserInfo struct {
@@ -111,4 +113,49 @@ func PostUser3(context *gin.Context) {
 	fmt.Println(user)
 	context.JSON(http.StatusOK, gin.H{"code": "200", "msg": "成功"})
 
+}
+
+func GetUploadFileController(context *gin.Context) {
+	context.HTML(http.StatusOK, "user/upload_to_file.html", nil)
+}
+
+func PostUpload(context *gin.Context) {
+	file, _ := context.FormFile("file")
+	fmt.Print(file.Filename)
+	time_unix_int := time.Now().Unix()
+	time_unix_str := strconv.FormatInt(time_unix_int, 10)
+	dst := "upload/" + time_unix_str + file.Filename
+	err := context.SaveUploadedFile(file, dst)
+	if err != nil {
+		fmt.Println("上传失败")
+		context.String(http.StatusOK, err.Error())
+	}
+
+	context.String(http.StatusOK, "上传成功")
+}
+
+func GetUploadFileController2(context *gin.Context) {
+	context.HTML(http.StatusOK, "user/upload_to_file2.html", nil)
+}
+
+func PostUpload2(context *gin.Context) {
+	form, _ := context.MultipartForm()
+	files := form.File["file"]
+	for _, file := range files {
+		fmt.Print(file.Filename)
+		time_unix_int := time.Now().Unix()
+		time_unix_str := strconv.FormatInt(time_unix_int, 10)
+		dst := "upload/" + time_unix_str + file.Filename
+		err := context.SaveUploadedFile(file, dst)
+		if err != nil {
+			fmt.Println("上传失败")
+			context.String(http.StatusOK, err.Error())
+		}
+
+		context.String(http.StatusOK, "上传成功")
+	}
+}
+
+func GetUploadFileController3(context *gin.Context) {
+	context.HTML(http.StatusOK, "user/upload_to_file3.html", nil)
 }
